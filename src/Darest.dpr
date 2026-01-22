@@ -16,7 +16,6 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-	TStyleManager.TrySetStyle('Calypso');
-  Application.CreateForm(TfrmMainUI, frmMainUI);
+	Application.CreateForm(TfrmMainUI, frmMainUI);
   Application.Run;
 end.

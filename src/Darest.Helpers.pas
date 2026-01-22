@@ -32,7 +32,7 @@ interface
 
 uses
 	System.Classes, System.JSON, System.SysUtils, FireDAC.Stan.Intf,
-	FireDAC.Stan.Option,
+	FireDAC.Stan.Option, System.Types, Vcl.Graphics, System.UITypes,
 	FireDAC.Stan.Error, FireDAC.UI.Intf,
 	FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
 	FireDAC.Phys, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
@@ -41,8 +41,37 @@ uses
 function RowToJSONObject(Q: TFDQuery): TJSONObject;
 function BuildPagedSelect(const BaseSQL, DriverID, OrderBy: string): string;
 procedure GetDriverParams(const ADriverID: string; AParams: TStrings);
+function IsColorDark(AColor: TColor): Boolean;
 
 implementation
+
+function ColorToRGBChannels(AColor: TColor; out R, G, B: Byte): Boolean;
+var
+  C: TColor;
+begin
+  C := ColorToRGB(AColor); // resolve clXXX e cores de tema
+
+  R := Byte(C);
+  G := Byte(C shr 8);
+  B := Byte(C shr 16);
+
+  Result := True;
+end;
+
+function IsColorDark(AColor: TColor): Boolean;
+var
+  R, G, B: Byte;
+  Luminance: Double;
+begin
+  ColorToRGBChannels(AColor, R, G, B);
+
+  Luminance :=
+    0.2126 * R +
+    0.7152 * G +
+    0.0722 * B;
+
+  Result := Luminance < 128;
+end;
 
 function JSONValueFromField(F: TField): TJSONValue;
 begin

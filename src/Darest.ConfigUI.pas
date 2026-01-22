@@ -42,7 +42,7 @@ uses
 	FireDAC.Phys.PG, // For PostgreSQL
 	FireDAC.Phys.SQLite, // For SQLite
 	FireDAC.Phys.FB, // For Firebird
-	FireDAC.Phys.MSSQL, // For SQL Server
+	// FireDAC.Phys.MSSQL, // For SQL Server
 	// FireDAC.Phys.Oracle, // For Oracle
 	// FireDAC.Phys.DB2, // For DB2
 	FireDAC.Phys.IB, // For InterBase
